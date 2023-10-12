@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-image: url("default-background.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .custom-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .custom-background input[type="file"] {
+      display: none;
+    }
+
+    .custom-background label {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+	
+</head>
+<body>
+  <div class="custom-background">
+    <input type="file" id="background-input" accept="image/*">
+    <label for="background-input">Choose Background Image</label>
+  </div>
+
+  <script>
+    document.getElementById("background-input").addEventListener("change", function(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        document.body.style.backgroundImage = "url('" + e.target.result + "')";
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
