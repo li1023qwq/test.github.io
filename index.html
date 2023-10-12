@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>测试</title>
+  <title>My Website Navigation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #0078D7;
+      padding: 10px;
+    }
+    h1 {
+      color: #FFF;
+      margin: 0;
+    }
+    nav {
+      background-color: #DDD;
+      padding: 10px;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+    .search-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .search-container input[type=text] {
+      padding: 10px;
+      width: 300px;
+    }
+    .search-container select {
+      padding: 10px;
+    }
+    .search-container button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>测试</h1>
+  <header>
+    <h1>My Website Navigation</h1>
+  </header>
   
-  <ul>
-    <li><a href="https://www.example.com">Example Website</a></li>
-    <li><a href="https://www.google.com">Google</a></li>
-    <li><a href="https://www.github.com">GitHub</a></li>
-    <li><a href="https://www.youtube.com">YouTube</a></li>
-  </ul>
+  <nav>
+    <ul>
+      <li><a href="https://www.example.com">Example Website</a></li>
+      <li><a href="https://www.google.com">Google</a></li>
+      <li><a href="https://www.github.com">GitHub</a></li>
+      <li><a href="https://www.youtube.com">YouTube</a></li>
+    </ul>
+  </nav>
   
-  <p>More links to come soon!</p>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Search">
+    <select id="search-engine">
+      <option value="https://www.google.com/search?q=">Google</option>
+      <option value="https://www.bing.com/search?q=">Bing</option>
+      <option value="https://search.yahoo.com/search?p=">Yahoo</option>
+    </select>
+    <button onclick="search()">Search</button>
+  </div>
+  
+  <script>
+    function search() {
+      var searchInput = document.getElementById("search-input").value;
+      var searchEngine = document.getElementById("search-engine").value;
+      var searchUrl = searchEngine + encodeURIComponent(searchInput);
+      window.location.href = searchUrl;
+    }
+  </script>
 </body>
 </html>
