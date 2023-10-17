@@ -59,7 +59,7 @@
 		
 		.suka {
 		  display: grid; /* 使用网格布局 */
-		  grid-template-columns: repeat(5, 80px); /* 设置网格列的数量和宽度 */
+		  grid-template-columns: repeat(10, 80px); /* 设置网格列的数量和宽度 */
 		  grid-gap: 20px; /* 设置网格间距 */
 		  margin-top: 20px; /* 设置顶部外边距 */
 		}
@@ -82,6 +82,18 @@
 		
 		
 	</style>
+	
+	
+	    <style>
+	        #chatbox {
+	            width: 400px;
+	            height: 300px;
+	            overflow-y: scroll;
+	            border: 1px solid #ccc;
+	            padding: 10px;
+	        }
+	    </style>
+	
 	<style>
 	  /* ...其他样式... */
 	  .website-grid {
@@ -224,7 +236,36 @@
 		</a>
 	</div>
 	
+	
+	
+	
+	
 </div>	
+<h1>聊天室</h1>
+    <div id="chatbox"></div>
+    <input type="text" id="message" placeholder="请输入消息">
+    <button onclick="sendMessage()">发送</button>
+
+    <script>
+        var chatbox = document.getElementById("chatbox");
+        var messageInput = document.getElementById("message");
+
+        function sendMessage() {
+            var message = messageInput.value;
+            if (message.trim() !== "") {
+                var timestamp = new Date().toLocaleString();
+                var sender = "您";
+                var chatMessage = timestamp + " " + sender + ": " + message;
+
+                var messageElement = document.createElement("p");
+                messageElement.textContent = chatMessage;
+                chatbox.appendChild(messageElement);
+
+                messageInput.value = "";
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        }
+    </script>
 	
 	
 	
