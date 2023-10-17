@@ -83,16 +83,71 @@
 		
 	</style>
 	
+	 <style>
+	    body {
+	      font-family: Arial, sans-serif;
+	      background-color: #f2f2f2;
+	      margin: 0;
+	      padding: 0;
+	    }
 	
-	    <style>
-	        #chatbox {
-	            width: 400px;
-	            height: 300px;
-	            overflow-y: scroll;
-	            border: 1px solid #ccc;
-	            padding: 10px;
-	        }
-	    </style>
+	    .chat-container {
+	      max-width: 600px;
+	      margin: 20px auto;
+	      background-color: #fff;
+	      border-radius: 5px;
+	      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	      overflow: hidden;
+	    }
+	
+	    .chat-header {
+	      background-color: #f2f2f2;
+	      padding: 10px;
+	      text-align: center;
+	      font-weight: bold;
+	    }
+	
+	    .chat-messages {
+	      padding: 10px;
+	      max-height: 400px;
+	      overflow-y: scroll;
+	    }
+	
+	    .message {
+	      margin-bottom: 10px;
+	    }
+	
+	    .message .sender {
+	      font-weight: bold;
+	    }
+	
+	    .message .text {
+	      margin-top: 5px;
+	    }
+	
+	    .chat-input {
+	      padding: 10px;
+	      background-color: #f2f2f2;
+	    }
+	
+	    .chat-input input[type="text"] {
+	      width: 100%;
+	      padding: 5px;
+	      border: none;
+	      border-radius: 5px;
+	    }
+	
+	    .chat-input input[type="submit"] {
+	      margin-top: 5px;
+	      padding: 5px 10px;
+	      background-color: #4CAF50;
+	      color: #fff;
+	      border: none;
+	      border-radius: 5px;
+	      cursor: pointer;
+	      float: right;
+	    }
+	  </style>
 	
 	<style>
 	  /* ...其他样式... */
@@ -240,54 +295,25 @@
 	
 	
 	
-</div>	
-<h1>聊天室</h1>
-
-    <div id="login">
-        <input type="text" id="username" placeholder="请输入用户名">
-        <button onclick="login()">登录</button>
-    </div>
-
-    <div id="chat" style="display: none;">
-        <div id="chatbox"></div>
-        <input type="text" id="message" placeholder="请输入消息">
-        <button onclick="sendMessage()">发送</button>
-    </div>
-
-    <script>
-        var chatbox = document.getElementById("chatbox");
-        var messageInput = document.getElementById("message");
-        var usernameInput = document.getElementById("username");
-
-        var username = "";
-
-        function login() {
-            var username = usernameInput.value;
-            if (username.trim() !== "") {
-                document.getElementById("login").style.display = "none";
-                document.getElementById("chat").style.display = "block";
-                usernameInput.value = "";
-                this.username = username;
-            }
-        }
-
-        function sendMessage() {
-            var message = messageInput.value;
-            if (message.trim() !== "") {
-                var timestamp = new Date().toLocaleString();
-                var sender = this.username;
-                var chatMessage = timestamp + " " + sender + ": " + message;
-
-                var messageElement = document.createElement("p");
-                messageElement.textContent = chatMessage;
-                chatbox.appendChild(messageElement);
-
-                messageInput.value = "";
-                chatbox.scrollTop = chatbox.scrollHeight;
-            }
-        }
-    </script>
 	
+</div>	
+ <div class="chat-container">
+    <div class="chat-header">QQ聊天</div>
+    <div class="chat-messages">
+      <div class="message">
+        <span class="sender">小明：</span>
+        <span class="text">你好！</span>
+      </div>
+      <div class="message">
+        <span class="sender">小红：</span>
+        <span class="text">你好！</span>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="输入消息..." />
+      <input type="submit" value="发送" />
+    </div>
+  </div>
 	
 	<script>
 	  function search() {
