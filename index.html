@@ -242,58 +242,51 @@
 	
 </div>	
 <h1>聊天室</h1>
-    <div id="chatbox"></div>
-    <input type="text" id="message" placeholder="请输入消息">
-    <button onclick="sendMessage()">发送</button>
+
+    <div id="login">
+        <input type="text" id="username" placeholder="请输入用户名">
+        <button onclick="login()">登录</button>
+    </div>
+
+    <div id="chat" style="display: none;">
+        <div id="chatbox"></div>
+        <input type="text" id="message" placeholder="请输入消息">
+        <button onclick="sendMessage()">发送</button>
+    </div>
 
     <script>
         var chatbox = document.getElementById("chatbox");
         var messageInput = document.getElementById("message");
+        var usernameInput = document.getElementById("username");
 
-        // 使用WebSocket与服务器建立连接
-        var socket = new WebSocket("ws://localhost:8080");
+        var username = "";
 
-        // 当连接建立时，发送一个欢迎消息
-        socket.onopen = function(event) {
-            var message = "欢迎加入聊天室！";
-            socket.send(message);
-        };
-
-        // 当收到消息时，在聊天框中显示
-        socket.onmessage = function(event) {
-            var message = event.data;
-            var timestamp = new Date().toLocaleString();
-            var chatMessage = timestamp + ": " + message;
-
-            var messageElement = document.createElement("p");
-            messageElement.textContent = chatMessage;
-            chatbox.appendChild(messageElement);
-
-            chatbox.scrollTop = chatbox.scrollHeight;
-        };
-
-        // 当连接关闭时，显示一个提示消息
-        socket.onclose = function(event) {
-            var message = "连接已关闭。";
-            var timestamp = new Date().toLocaleString();
-            var chatMessage = timestamp + ": " + message;
-
-            var messageElement = document.createElement("p");
-            messageElement.textContent = chatMessage;
-            chatbox.appendChild(messageElement);
-
-            chatbox.scrollTop = chatbox.scrollHeight;
-        };
+        function login() {
+            var username = usernameInput.value;
+            if (username.trim() !== "") {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("chat").style.display = "block";
+                usernameInput.value = "";
+                this.username = username;
+            }
+        }
 
         function sendMessage() {
             var message = messageInput.value;
             if (message.trim() !== "") {
-                socket.send(message);
+                var timestamp = new Date().toLocaleString();
+                var sender = this.username;
+                var chatMessage = timestamp + " " + sender + ": " + message;
+
+                var messageElement = document.createElement("p");
+                messageElement.textContent = chatMessage;
+                chatbox.appendChild(messageElement);
+
                 messageInput.value = "";
+                chatbox.scrollTop = chatbox.scrollHeight;
             }
         }
     </script>
-	
 	
 	
 	<script>
