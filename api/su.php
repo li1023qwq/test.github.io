@@ -1,8 +1,9 @@
 <?php
-$servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database";
+$servername = "mysql.sqlpub.com:3306";
+$username = "li1023qwq";
+$password = "81fbc8ed084fb42f";
+$dbname = "li1023qwq";
+
 
 // 创建数据库连接
 $conn = new mysqli($servername, $username, $password, $dbname);
