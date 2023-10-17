@@ -250,19 +250,46 @@
         var chatbox = document.getElementById("chatbox");
         var messageInput = document.getElementById("message");
 
+        // 使用WebSocket与服务器建立连接
+        var socket = new WebSocket("ws://localhost:8080");
+
+        // 当连接建立时，发送一个欢迎消息
+        socket.onopen = function(event) {
+            var message = "欢迎加入聊天室！";
+            socket.send(message);
+        };
+
+        // 当收到消息时，在聊天框中显示
+        socket.onmessage = function(event) {
+            var message = event.data;
+            var timestamp = new Date().toLocaleString();
+            var chatMessage = timestamp + ": " + message;
+
+            var messageElement = document.createElement("p");
+            messageElement.textContent = chatMessage;
+            chatbox.appendChild(messageElement);
+
+            chatbox.scrollTop = chatbox.scrollHeight;
+        };
+
+        // 当连接关闭时，显示一个提示消息
+        socket.onclose = function(event) {
+            var message = "连接已关闭。";
+            var timestamp = new Date().toLocaleString();
+            var chatMessage = timestamp + ": " + message;
+
+            var messageElement = document.createElement("p");
+            messageElement.textContent = chatMessage;
+            chatbox.appendChild(messageElement);
+
+            chatbox.scrollTop = chatbox.scrollHeight;
+        };
+
         function sendMessage() {
             var message = messageInput.value;
             if (message.trim() !== "") {
-                var timestamp = new Date().toLocaleString();
-                var sender = "您";
-                var chatMessage = timestamp + " " + sender + ": " + message;
-
-                var messageElement = document.createElement("p");
-                messageElement.textContent = chatMessage;
-                chatbox.appendChild(messageElement);
-
+                socket.send(message);
                 messageInput.value = "";
-                chatbox.scrollTop = chatbox.scrollHeight;
             }
         }
     </script>
