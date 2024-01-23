@@ -18,6 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
 
         echo "注册成功！";
+        header("Location: index.html");
+        exit();
     } catch (PDOException $e) {
         echo "注册失败: " . $e->getMessage();
     }
