@@ -1,4 +1,4 @@
-构建成功<a href="/api/index.php">点击这里查看phpinfo</a>
+<a href="/api/index.php">点击这里查看phpinfo</a>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -17,7 +17,7 @@
       text-align: center;
     }
 
-    form {
+    .form-container {
       max-width: 400px;
       margin: 0 auto;
       background-color: #ffffff;
@@ -55,31 +55,67 @@
     button:hover {
       background-color: #0056b3;
     }
+
+    .toggle-button {
+      background-color: transparent;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
-  <h1>登录</h1>
-  <form action="api/login.php" method="post">
-    <label for="loginUsername">用户名：</label>
-    <input type="text" id="loginUsername" name="username" required>
-    <br>
-    <label for="loginPassword">密码：</label>
-    <input type="password" id="loginPassword" name="password" required>
-    <br>
-    <button type="submit">登录</button>
-  </form>
+  <h1>登录和注册</h1>
+  <div class="form-container">
+    <h2 id="form-title">登录</h2>
+    <form id="login-form" action="api/login.php" method="post">
+      <label for="loginUsername">用户名：</label>
+      <input type="text" id="loginUsername" name="username" required>
+      <br>
+      <label for="loginPassword">密码：</label>
+      <input type="password" id="loginPassword" name="password" required>
+      <br>
+      <button type="submit">登录</button>
+    </form>
 
-  <h1>注册</h1>
-  <form action="api/register.php" method="post">
-    <label for="registerUsername">用户名：</label>
-    <input type="text" id="registerUsername" name="username" required>
-    <br>
-    <label for="registerPassword">密码：</label>
-    <input type="password" id="registerPassword" name="password" required>
-    <br>
-    <button type="submit">注册</button>
-  </form>
+    <h2 id="toggle-text">还没有账号？</h2>
+    <button class="toggle-button" id="toggle-button">注册</button>
 
+    <form id="register-form" action="api/register.php" method="post" style="display: none;">
+      <label for="registerUsername">用户名：</label>
+      <input type="text" id="registerUsername" name="username" required>
+      <br>
+      <label for="registerPassword">密码：</label>
+      <input type="password" id="registerPassword" name="password" required>
+      <br>
+      <button type="submit">注册</button>
+    </form>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const formTitle = document.getElementById("form-title");
+    const toggleText = document.getElementById("toggle-text");
+    const toggleButton = document.getElementById("toggle-button");
+
+    toggleButton.addEventListener("click", () => {
+      if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+        formTitle.innerText = "登录";
+        toggleText.innerText = "还没有账号？";
+        toggleButton.innerText = "注册";
+      } else {
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+        formTitle.innerText = "注册";
+        toggleText.innerText = "已经有账号？";
+        toggleButton.innerText = "登录";
+      }
+    });
+  </script>
 </body>
 </html>
