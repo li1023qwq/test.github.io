@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->execute();
 
-        echo "注册成功！";
         header("Location: index.html");
+        echo "注册成功！";
         exit();
     } catch (PDOException $e) {
         echo "注册失败: " . $e->getMessage();
