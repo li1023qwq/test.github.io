@@ -1,17 +1,27 @@
 <?php
-// 处理登录逻辑的PHP代码
+// 引入数据库配置文件
+require_once 'db_config.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 获取提交的用户名和密码
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // 在这里执行验证逻辑，例如检查用户名和密码是否匹配数据库中的记录
+    try {
+        // 在这里执行验证逻辑，检查用户名是否存在并验证密码
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
 
-    // 示例：简单地输出验证结果
-    if ($username === "示例用户名" && $password === "示例密码") {
-        echo "登录成功！";
-    } else {
-        echo "登录失败，请检查用户名和密码。";
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            echo "登录成功！";
+        } else {
+            echo "登录失败，请检查用户名和密码。";
+        }
+    } catch (PDOException $e) {
+        echo "登录失败: " . $e->getMessage();
     }
 }
 ?>
