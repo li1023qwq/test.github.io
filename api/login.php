@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($user && password_verify($password, $user['password'])) {
             echo "登录成功！";
-            header("Location: ../welcome.html"); // 替换为你想要跳转的页面
+            header("Location: ./welcome.html"); // 替换为你想要跳转的页面
             exit();
         } else {
             echo "登录失败，请检查用户名和密码。";
